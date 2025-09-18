@@ -24,8 +24,12 @@ for col in string_columns:
     # Replace other messy texts
     df[col] = df[col].str.replace(r'[^\w\s\–]', '', regex = True)
 
+    # Replace extra spaces
+    df[col] = df[col].str.replace(r'\s+', ' ', regex = True)
+
 # Turn strings into numbers
 for col in ['Actual gross', 'Adjusted gross (in 2024 dollars)', 'Average gross']:
     df[col] = pd.to_numeric(df[col])
+
 
 df.to_excel('python_cleaned.xlsx', index = False)
