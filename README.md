@@ -20,7 +20,7 @@ This project showcases the ability to use statistical modeling to uncover the ro
 
 *   **Objective:** To analyze a manufacturing dataset, build a General Linear Model in R to identify the key drivers of product defects, and translate the findings into a clear, risk-based business strategy.
 *   **Skills Demonstrated:** Statistical Modeling (GLM in R), Data Interpretation, Root Cause Analysis.
-*   **(./[Click here to view the full project folder](https://github.com/Aouq/Data-Analysis-Portfolio/tree/main/data%20cleaning%20project)/)**
+*   **[Click here to view the full project folder](https://github.com/Aouq/Data-Analysis-Portfolio/tree/main/data%20cleaning%20project)**
 
 ---
 
