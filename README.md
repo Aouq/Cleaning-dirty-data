@@ -10,7 +10,7 @@ This project is a direct demonstration of the skills required for the Data Assoc
 
 *   **Objective:** To take a raw, messy dataset and transform it into a clean, well-structured, and analysis-ready format.
 *   **Skills Demonstrated:** Python (Pandas), Regular Expressions, Data Cleaning & Standardization, Excel.
-*   **[Click here to view the full project folder](./Data_Cleaning_Project_for_Bizcap/)**
+*   **[Click here to view the full project folder](./[Manufacturing defect analysis](https://github.com/Aouq/Data-Analysis-Portfolio/tree/main/Manufacturing%20defect%20analysis)/)**
 
 ---
 
@@ -19,8 +19,8 @@ This project is a direct demonstration of the skills required for the Data Assoc
 This project showcases the ability to use statistical modeling to uncover the root causes of operational issues and provide data-driven business recommendations, directly aligning with the needs of the Data Analyst role at Ventura.
 
 *   **Objective:** To analyze a manufacturing dataset, build a General Linear Model in R to identify the key drivers of product defects, and translate the findings into a clear, risk-based business strategy.
-*   **Skills Demonstrated:** Statistical Modeling (GLM in R), Data Interpretation, Root Cause Analysis, Business Acumen.
-*   **[Click here to view the full project folder](./Statistical_Analysis_Project_for_Ventura/)**
+*   **Skills Demonstrated:** Statistical Modeling (GLM in R), Data Interpretation, Root Cause Analysis.
+*   **[Click here to view the full project folder](./[Statistical_Analysis_Project_for_Ventura](https://github.com/Aouq/Data-Analysis-Portfolio/tree/main/data%20cleaning%20project)/)**
 
 ---
 
