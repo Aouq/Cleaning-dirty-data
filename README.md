@@ -10,7 +10,7 @@ This project is a direct demonstration of the skills required for the Data Assoc
 
 *   **Objective:** To take a raw, messy dataset and transform it into a clean, well-structured, and analysis-ready format.
 *   **Skills Demonstrated:** Python (Pandas), Regular Expressions, Data Cleaning & Standardization, Excel.
-*   **(./[Click here to view the full project folder](https://github.com/Aouq/Data-Analysis-Portfolio/tree/main/Manufacturing%20defect%20analysis)/)**
+*   **[Click here to view the full project folder](https://github.com/Aouq/Data-Analysis-Portfolio/tree/main/Manufacturing%20defect%20analysis)**
 
 ---
 
