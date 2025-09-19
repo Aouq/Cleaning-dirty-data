@@ -1,59 +1,29 @@
-# Data Cleaning & Standardization Project
+# Data Analysis & Automation Portfolio
 
-## Project Objective
+Hello! This repository contains a collection of data projects that demonstrate my skills in data cleaning, statistical analysis, and translating complex findings into actionable business insights.
 
-This project is a practical demonstration of the data cleaning, preparation, and automation skills required for a data-focused role. The goal was to take a raw, messy dataset sourced from the web, and transform it into a clean, well-structured, and analysis-ready format using both manual inspection and an automated Python script.
+---
 
-## Project Methodology
+## Project 1: Data Cleaning & Automation for Bizcap
 
-This project was approached in two distinct phases to showcase a full-circle understanding of a data cleaning task:
+This project is a direct demonstration of the skills required for the Data Associate role at Bizcap. It showcases an end-to-end data cleaning workflow, from manual inspection to a fully automated Python script.
 
-1.  **Manual Analysis & Cleaning (in Excel):** The initial dataset was first loaded into Excel to perform a hands-on inspection. This foundational step allowed for the identification of various data quality issues, from simple formatting problems to subtle, "invisible" character encoding errors. A detailed **"Summary"** was created to document every identified issue and the proposed solution.
+*   **Objective:** To take a raw, messy dataset and transform it into a clean, well-structured, and analysis-ready format.
+*   **Skills Demonstrated:** Python (Pandas), Regular Expressions, Data Cleaning & Standardization, Excel.
+*   **[Click here to view the full project folder](./Data_Cleaning_Project_for_Bizcap/)**
 
-2.  **Automated Cleaning (with Python):** The steps and rules defined in the manual log were then translated into a robust, repeatable Python script using the **pandas** library. This script programmatically performs all the cleaning steps, taking the raw CSV as input and producing a perfectly clean Excel file as output.
+---
 
-## Files in this Repository
+## Project 2: Statistical Modeling & Root Cause Analysis for Ventura Bus Lines
 
-*   `dirty data.csv`: The original, unprocessed dataset with numerous data quality issues.
-*   `manual cleaning.xlsx`: An Excel workbook containing:
-    *   The original raw data.
-    *   A detailed **"Summary"** tab that documents all identified issues and the actions required to fix them.
-*   `python_cleaning.py`: The final, well-commented Python script that automates the entire cleaning workflow.
-*   `python_cleaned.xlsx`: The final, analysis-ready dataset produced by the Python script.
+This project showcases the ability to use statistical modeling to uncover the root causes of operational issues and provide data-driven business recommendations, directly aligning with the needs of the Data Analyst role at Ventura.
 
-## Summary of Cleaning Steps Performed
+*   **Objective:** To analyze a manufacturing dataset, build a General Linear Model in R to identify the key drivers of product defects, and translate the findings into a clear, risk-based business strategy.
+*   **Skills Demonstrated:** Statistical Modeling (GLM in R), Data Interpretation, Root Cause Analysis, Business Acumen.
+*   **[Click here to view the full project folder](./Statistical_Analysis_Project_for_Ventura/)**
 
-The Python script automates the following cleaning actions:
+---
 
-*   **Column Name Standardization:**
-    *   Corrected invisible non-breaking spaces (`\xa0`) in column headers.
-    *   Removed leading/trailing whitespace.
-    *   Updated column names for clarity (e.g., `(in 2022 dollars)` to `(in 2024 dollars)`).
+### Contact
 
-*   **Data Type Correction:**
-    *   Stripped non-numeric characters (e.g., `$`, `,`) from financial columns.
-    *   Converted numeric-like columns to their proper `int64` data type.
-
-*   **Text & String Cleaning:**
-    *   Used regular expressions to remove unwanted patterns and symbols (e.g., `[...]`, `†`, `*`) from text fields.
-    *   Normalized whitespace to ensure all text was clean and consistent.
-
-*   **Structural Cleaning:**
-    *   Removed irrelevant columns (`Peak`, `All Time Peak`, `Ref.`) that contained significant missing data.
-
-## Key Skills Demonstrated
-
-This project showcases the following skills:
-
-*   **Detail-Oriented & Thorough:** Identified and corrected subtle data issues like non-breaking spaces, en dashes, and mixed data types that are often missed.
-*   **Spreadsheet Competence (Excel):** Used Excel for initial data inspection and to create a structured summary and action log.
-*   **Python for Automation (Pandas):** Developed a complete, well-commented Python script using the pandas library to create a robust and repeatable cleaning workflow.
-*   **Data Operations & Regular Expressions:** Handled data type conversions, complex string manipulation, and pattern matching using regex.
-*   **Problem-Solving & Action-Oriented Mindset:** Independently managed an end-to-end project from a raw file to a clean, usable dataset.
-
-## How to Run the Project
-
-1.  Ensure you have Python and the pandas library installed (`pip install pandas`).
-2.  Place the `data_cleaner.py` script and the `raw_data.csv` file in the same directory.
-3.  Run the Python script from your terminal: `python data_cleaner.py`
-4.  The script will generate the `cleaned_output.xlsx` file in the same directory.
+*   **Email:** [ruyanghu@gmail.com]
