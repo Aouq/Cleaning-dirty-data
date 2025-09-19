@@ -4,7 +4,7 @@ Hello! This repository contains a collection of data projects that demonstrate m
 
 ---
 
-## Project 1: Data Cleaning & Automation for Bizcap
+## Project 1: Data Cleaning & Automation
 
 This project is a direct demonstration of the skills required for the Data Associate role at Bizcap. It showcases an end-to-end data cleaning workflow, from manual inspection to a fully automated Python script.
 
@@ -14,7 +14,7 @@ This project is a direct demonstration of the skills required for the Data Assoc
 
 ---
 
-## Project 2: Statistical Modeling & Root Cause Analysis for Ventura Bus Lines
+## Project 2: Statistical Modeling & Root Cause Analysis
 
 This project showcases the ability to use statistical modeling to uncover the root causes of operational issues and provide data-driven business recommendations, directly aligning with the needs of the Data Analyst role at Ventura.
 
