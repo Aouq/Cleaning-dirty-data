@@ -1,0 +1,148 @@
+---
+title: "Detailed statistical analysis"
+output: pdf_document
+date: "2025-09-18"
+---
+
+```{r}
+data <- read.table(file ="data.txt", header=TRUE)
+dim(data)
+names(data)
+data$prebake <- factor(data$prebake)
+data$flux <- factor(data$flux)
+data$cooling <- factor(data$cooling)
+data$temp <- factor(data$temp)
+str(data)
+```
+The data is taken from Condra, Lloyd, Reliability Improvement with Design of Experiment.
+CRC Press, 2001. Full wavesolder data has 48 observations, each of which has the number of defects
+and seven predictor variables. 
+
+We are predicting numDefects, which represents a count of events. Since we don't know the total number of things defects come from, a binomial regression doesn't really make sense here. Because the number of defects are integers, poisson model should be better than gamma model.
+
+First I'll plot the data to understand it.
+
+Since the link function for poisson are log(mean), mean, and sqrt(mean), and the parameters only take 2 values, the gradient of the lines are going to stay the same after applying any of the link function to the mean. For simplicity of code, mean vs data is plotted.
+
+```{r}
+par(mfrow = c(3, 2), mar = c(4.5, 4.5, 2, 1), oma = c(0, 0, 3, 0))
+
+# Plot 1: Prebake vs. Flux
+with(data, interaction.plot(x.factor = prebake, trace.factor = flux,
+                            response = data$numDefects,
+                            ylab = "Mean numDefects", xlab = "Prebake"))
+
+# Plot 2: Prebake vs. Cooling
+with(data, interaction.plot(x.factor = prebake, trace.factor = cooling,
+                            response = data$numDefects,
+                            ylab = "Mean numDefects", xlab = "Prebake"))
+
+# Plot 3: Prebake vs. Temp
+with(data, interaction.plot(x.factor = prebake, trace.factor = temp,
+                            response = data$numDefects,
+                            ylab = "Mean numDefects", xlab = "Prebake"))
+
+# Plot 4: Flux vs. Cooling
+with(data, interaction.plot(x.factor = flux, trace.factor = cooling,
+                            response = data$numDefects,
+                            ylab = "Mean numDefects", xlab = "Flux"))
+
+# Plot 5: Flux vs. Temp
+with(data, interaction.plot(x.factor = flux, trace.factor = temp,
+                            response = data$numDefects,
+                            ylab = "Mean numDefects", xlab = "Flux"))
+
+# Plot 6: Cooling vs. Temp
+with(data, interaction.plot(x.factor = cooling, trace.factor = temp,
+                            response = data$numDefects,
+                            ylab = "Mean numDefects", xlab = "Cooling"))
+
+# Add an overall title to the entire set of plots
+mtext("Interaction Plots for All Pairs on Log Scale", outer = TRUE, cex = 1.5)
+```
+
+From the plot it looks like there's no interaction between temp&flux, and very little interaction between prebake&temp and flux&cooling. But strong evidence for interaction between other parameters are present.
+
+Model with interaction between every parameter.
+
+```{r}
+model1 = glm(numDefects ~ .^2, family = poisson, data = data)
+summary(model1)
+par(mfrow = c(2,2))
+plot(model1)
+```
+
+From all the diagnostic plots, point 27 is a very big outlier. It has a very big cook's distance, skewing the result. Get rid of this data point.
+
+```{r}
+data2 = data[-27,]
+model1 = glm(numDefects ~ .^2, family = poisson, data = data2)
+summary(model1)
+par(mfrow = c(2,2))
+plot(model1)
+df1 = nrow(data) - 11
+pearson_chisq1 <- sum(residuals(model1, type="pearson")^2)
+pearson_chisq1/df1
+```
+
+The diagnostic plots are a lot better than before. Residuals are pretty evenly scattered around, points lie roughly on the qq plot, and there're no points with huge cook's distance. However, `r pearson_chisq1/df1` $>$ 1. Pearson's chi squared statistics is an estimator for phi (= 1 for poisson model). Since it's much bigger than 1 here that means our data has a greater variance than the mdoel expects, meaning there's overdispersion at play here. Deal with overdispersion with quasilikelihood method.
+
+```{r}
+model2 = glm(numDefects ~ .^2, family = quasipoisson, data = data2)
+summary(model2)
+```
+
+Comparing model2 and model1, we can see that many of the parameters are no longer significant.
+
+Now drop parameters that are not significant. Update until everything is significant from drop1. A model with less parameter is desired, since it will have more degrees of freedom, less likely to overfit and easier to explain.
+
+```{r}
+drop1(model2, test = "F")
+model3 = update(model2, . ~ . - prebake:flux)
+drop1(model3,test = "F")
+model3 = update(model3, . ~ . - prebake:temp)
+drop1(model3,test = "F")
+model3 = update(model3, . ~ . - flux:temp)
+drop1(model3,test = "F")
+model3 = update(model3, . ~ . - flux:cooling)
+drop1(model3,test = "F")
+summary(model3)
+```
+
+Make sure dropping these parameters is not detremental to the model, compare the final model and full model with F test
+
+```{r}
+anova(model3,model2, test = "F")
+```
+
+The extra terms in anova is not significant enough to be put into the model
+
+Take a look at the reduced model
+
+```{r}
+summary(model3)
+```
+
+**Main effects**
+
+Prebake, flux, and temp were all found to have a significant main effect on the number of defects. The negative coefficients for flux2 (-0.35) and temp2 (-1.44) indicate that switching from level 1 to level 2 for these factors is associated with a decrease in defects. Conversely, the positive coefficient for prebake2 (1.23) suggests that using the second prebake setting is associated with an increase in defects.
+
+The main effect for cooling was not statistically significant (p = 0.3367). This implies that, on its own, changing the cooling level does not have a simple, consistent impact. However, cooling is a critically important variable due to its involvement in two significant interactions.
+
+**interaction effects**
+
+Prebake:cooling (p = 0.0059): The coefficient for prebake2:cooling2 is -1.76. This significant negative interaction means that the effect of prebake depends on the cooling level. While prebake=2 is generally bad (increases defects), pairing it with cooling=2 counteracts this negative effect more strongly than would be expected from their individual effects. This suggests a specific combination of settings can mitigate a problematic factor.
+
+Cooling:temp (p = 0.0141): The coefficient for cooling2:temp2 is 0.89. This significant positive interaction indicates that the combined effect of cooling=2 and temp=2 is less beneficial than the sum of their individual effects. While both settings are generally associated with fewer defects, their benefits are not fully additive when used together.
+
+**Conclusion**
+
+All parameters have an effect on the defects, and they're not independent.
+
+Since 1.2300264+0.2600942-1.7607741=`r 1.2300264+0.2600942-1.7607741` (prebake2 + cooling2 + prebake2:cooling2), 0.8914352-1.4387845=`r -1.4387845+0.8914352` (temp2 + cooling2:temp2) and flux2 with -0.3502419. There's significant evidence supporting soldering with everything on the second level reduces the rate of defects arising.
+
+If the business is unable to switch all process settings to level 2, the data provides a clear, risk-based path forward:
+
+The most effective and lowest-risk strategy is to prioritize switching Flux and Temperature to Setting 2. The model shows that these two factors independently and significantly reduce the defect rate. Their lack of a strong interaction means their benefits are additive and can be implemented without complex process control. The Temp setting, in particular, offers the single largest improvement.
+
+Conversely, leaving Prebake and Cooling at Setting 1 is the most prudent course of action in a constrained environment. While the prebake2:cooling2 combination does offer a minor net benefit, it introduces significant operational risk. The model clearly shows that the main effects of prebake2 and cooling2 on their own can increase defects, meaning an error in implementing the combination could be highly detrimental. Therefore, the minor potential reward does not outweigh the substantial risk.
